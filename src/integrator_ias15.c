@@ -158,7 +158,12 @@ static struct reb_dpconst7 dpcast(struct reb_dp7 dp){
 
 static inline void add_cs(double* p, double* csp, double inp){
     const double t = *p + (inp - *csp);
-    *csp += (t - *p) - inp;
+	const double tp = t - *p;
+
+	const double t1 = *p - (t - tp);
+	const double t2 = (inp - tp) + *csp;
+
+	*csp = t1 + t2;
     *p = t;
 }
 
